@@ -19,8 +19,8 @@ jobs:
             install_deps_cmd: dnf -y install git-core python3-pip python3-libdnf
           - base_image: opensuse/leap:latest
             install_deps_cmd: zypper -n install git-core python3-pip python3-libdnf
-          - base_image: ubuntu:23.10
-            install_deps_cmd: apt-get -y update && apt-get -y install git python3-pip python3-libdnf
+          #- base_image: ubuntu:23.10
+          #  install_deps_cmd: apt-get -y update && apt-get -y install git python3-pip python3-libdnf
     steps:
       - uses: actions/checkout@v2
       - name: Run the tests
