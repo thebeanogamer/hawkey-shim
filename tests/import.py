@@ -8,10 +8,10 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def test():
-    import dnf
+    import hawkey
 
     # sanity check
-    print("Age of /etc/os-release:", dnf.util.file_age("/etc/os-release"))
+    print("Age of /etc/os-release:", hawkey.detect_arch())
 
 
 if __name__ == "__main__":

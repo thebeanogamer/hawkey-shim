@@ -6,7 +6,7 @@ set -e
 
 ### test import in virtualenvs
 
-pushd /dnf-shim
+pushd /hawkey-shim
 tox
 popd
 
@@ -20,8 +20,8 @@ if [ ! -x "${PYTHON}" -a -x "${PLATFORM_PYTHON}" ]; then
     PYTHON="${PLATFORM_PYTHON}"
 fi
 
-${PYTHON} -m build --wheel /dnf-shim
-# failure to install is most likely caused by existing DNF bindings, consider it a success
-${PYTHON} -m pip install /dnf-shim/dist/*.whl || true
-${PYTHON} /dnf-shim/tests/import.py
+${PYTHON} -m build --wheel /hawkey-shim
+# failure to install is most likely caused by existing HAWKEY bindings, consider it a success
+${PYTHON} -m pip install /hawkey-shim/dist/*.whl || true
+${PYTHON} /hawkey-shim/tests/import.py
 ${PYTHON} -m pip check

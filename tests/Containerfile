@@ -7,7 +7,7 @@ RUN python3 -m pip install tox build
 
 COPY tests/entrypoint.sh /entrypoint.sh
 
-WORKDIR /dnf-shim
+WORKDIR /hawkey-shim
 COPY . .
 
 WORKDIR /

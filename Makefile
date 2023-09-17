@@ -1,4 +1,4 @@
-TEST_IMAGE = dnf-shim-tests
+TEST_IMAGE = hawkey-shim-tests
 BASE_IMAGE ?=
 INSTALL_DEPS_CMD ?=
 

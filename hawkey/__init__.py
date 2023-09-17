@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-DNF shim module for use in virtualenvs
+HAWKEY shim module for use in virtualenvs
 """
 
 import importlib
@@ -14,8 +14,8 @@ import sys
 from pathlib import Path
 from typing import List
 
-PROJECT_NAME = "dnf-shim"
-MODULE_NAME = "dnf"
+PROJECT_NAME = "hawkey-shim"
+MODULE_NAME = "hawkey"
 
 logger = logging.getLogger(PROJECT_NAME)
 
@@ -57,7 +57,7 @@ def get_system_sitepackages() -> List[str]:
 
 def try_path(path: str) -> bool:
     """
-    Tries to load system DNF module from the specified path.
+    Tries to load system HAWKEY module from the specified path.
 
     Returns:
         True if successful, False otherwise.
@@ -68,8 +68,8 @@ def try_path(path: str) -> bool:
     try:
         importlib.reload(sys.modules[__name__])
         # sanity check
-        file_age = sys.modules[__name__].util.file_age("/etc/os-release")
-        return file_age is not None
+        basearch = sys.modules[__name__].detect_arch()
+        return basearch is not None
     finally:
         del sys.path[0]
     return False
@@ -77,7 +77,7 @@ def try_path(path: str) -> bool:
 
 def initialize() -> None:
     """
-    Initializes the shim. Tries to load system DNF module and replace itself with it.
+    Initializes the shim. Tries to load system HAWKEY module and replace itself with it.
     """
     for path in get_system_sitepackages():
         logger.debug(f"Trying {path}")
@@ -92,8 +92,8 @@ def initialize() -> None:
             continue
     else:
         raise ImportError(
-            "Failed to import system DNF module. "
-            "Make sure DNF Python bindings are installed on your system."
+            "Failed to import system HAWKEY module. "
+            "Make sure HAWKEY Python bindings are installed on your system."
         )
 
 
