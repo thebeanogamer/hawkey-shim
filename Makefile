@@ -1,4 +1,4 @@
-TEST_IMAGE = libdnf-shim-tests
+TEST_IMAGE = dnf-shim-tests
 BASE_IMAGE ?=
 INSTALL_DEPS_CMD ?=
 

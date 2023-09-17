@@ -6,7 +6,7 @@ set -e
 
 ### test import in virtualenvs
 
-pushd /libdnf-shim
+pushd /dnf-shim
 tox
 popd
 
@@ -20,8 +20,8 @@ if [ ! -x "${PYTHON}" -a -x "${PLATFORM_PYTHON}" ]; then
     PYTHON="${PLATFORM_PYTHON}"
 fi
 
-${PYTHON} -m build --wheel /libdnf-shim
-# failure to install is most likely caused by existing LIBDNF bindings, consider it a success
-${PYTHON} -m pip install /libdnf-shim/dist/*.whl || true
-${PYTHON} /libdnf-shim/tests/import.py
+${PYTHON} -m build --wheel /dnf-shim
+# failure to install is most likely caused by existing DNF bindings, consider it a success
+${PYTHON} -m pip install /dnf-shim/dist/*.whl || true
+${PYTHON} /dnf-shim/tests/import.py
 ${PYTHON} -m pip check
