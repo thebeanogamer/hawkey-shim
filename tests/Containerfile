@@ -3,7 +3,7 @@ FROM ${BASE_IMAGE}
 
 ARG INSTALL_DEPS_CMD
 RUN sh -c "${INSTALL_DEPS_CMD}"
-RUN python3 -m pip install tox build
+RUN python3 -m pip install tox build --break-system-packages
 
 COPY tests/entrypoint.sh /entrypoint.sh
 
