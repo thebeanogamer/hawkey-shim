@@ -53,5 +53,5 @@ repos:
     hooks:
       - id: check-rebase
         args:
-          - https://github.com/packit/rpm-shim.git
+          - https://github.com/thebeanogamer/dnf-shim.git
         stages: [manual, push]

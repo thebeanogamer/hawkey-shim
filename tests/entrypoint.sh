@@ -6,7 +6,7 @@ set -e
 
 ### test import in virtualenvs
 
-pushd /rpm-shim
+pushd /libdnf-shim
 tox
 popd
 
@@ -20,8 +20,8 @@ if [ ! -x "${PYTHON}" -a -x "${PLATFORM_PYTHON}" ]; then
     PYTHON="${PLATFORM_PYTHON}"
 fi
 
-${PYTHON} -m build --wheel /rpm-shim
-# failure to install is most likely caused by existing RPM bindings, consider it a success
-${PYTHON} -m pip install /rpm-shim/dist/*.whl || true
-${PYTHON} /rpm-shim/tests/import.py
+${PYTHON} -m build --wheel /libdnf-shim
+# failure to install is most likely caused by existing LIBDNF bindings, consider it a success
+${PYTHON} -m pip install /libdnf-shim/dist/*.whl || true
+${PYTHON} /libdnf-shim/tests/import.py
 ${PYTHON} -m pip check

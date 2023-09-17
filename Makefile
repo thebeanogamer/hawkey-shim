@@ -1,4 +1,4 @@
-TEST_IMAGE = rpm-shim-tests
+TEST_IMAGE = libdnf-shim-tests
 BASE_IMAGE ?=
 INSTALL_DEPS_CMD ?=
 

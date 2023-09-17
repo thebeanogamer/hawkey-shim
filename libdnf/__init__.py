@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-RPM shim module for use in virtualenvs
+LIBDNF shim module for use in virtualenvs
 """
 
 import importlib
@@ -14,8 +14,8 @@ import sys
 from pathlib import Path
 from typing import List
 
-PROJECT_NAME = "rpm-shim"
-MODULE_NAME = "rpm"
+PROJECT_NAME = "libdnf-shim"
+MODULE_NAME = "libdnf"
 
 logger = logging.getLogger(PROJECT_NAME)
 
@@ -57,7 +57,7 @@ def get_system_sitepackages() -> List[str]:
 
 def try_path(path: str) -> bool:
     """
-    Tries to load system RPM module from the specified path.
+    Tries to load system LIBDNF module from the specified path.
 
     Returns:
         True if successful, False otherwise.
@@ -68,8 +68,8 @@ def try_path(path: str) -> bool:
     try:
         importlib.reload(sys.modules[__name__])
         # sanity check
-        confdir = sys.modules[__name__].expandMacro("%getconfdir")
-        return Path(confdir).is_dir()
+        confdir = sys.modules[__name__].utils.checksum_value("sha256", "/etc/os-release")
+        return confdir is not None
     finally:
         del sys.path[0]
     return False
@@ -77,7 +77,7 @@ def try_path(path: str) -> bool:
 
 def initialize() -> None:
     """
-    Initializes the shim. Tries to load system RPM module and replace itself with it.
+    Initializes the shim. Tries to load system LIBDNF module and replace itself with it.
     """
     for path in get_system_sitepackages():
         logger.debug(f"Trying {path}")
@@ -92,16 +92,15 @@ def initialize() -> None:
             continue
     else:
         raise ImportError(
-            "Failed to import system RPM module. "
-            "Make sure RPM Python bindings are installed on your system."
+            "Failed to import system LIBDNF module. "
+            "Make sure LIBDNF Python bindings are installed on your system."
         )
 
 
-# avoid repeated initialization of the shim module
-try:
-    _shim_module_initializing_
-except NameError:
-    _shim_module_initializing_: bool = True
+_shim_module_initializing_ = False
+
+if not _shim_module_initializing_:
+    _shim_module_initializing_ = True
     initialize()
 else:
     raise ShimAlreadyInitializingError

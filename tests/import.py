@@ -8,10 +8,10 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def test():
-    import rpm
+    import libdnf
 
     # sanity check
-    print("RPM conf dir:", rpm.expandMacro("%getconfdir"))
+    print("SHA256 of /etc/os-release:", libdnf.utils.checksum_value("sha256", "/etc/os-release"))
 
 
 if __name__ == "__main__":
